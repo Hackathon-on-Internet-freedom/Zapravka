@@ -104,7 +104,7 @@ def listorders(message):
         bot.send_message(admin_id, '-------Список неотвеченных писем-------')
 
         for letter in letters:
-            bot.send_message(admin_id, f'Заказ №{letter}')
+            bot.send_message(admin_id, f'Письмо №{letter}')
 
             if letters[letter] in wait_users:
                 bot.send_message(admin_id, 'Отправитель этого письма не ответил на отправленный вопрос')
@@ -203,7 +203,11 @@ def agree(message):
             letter = int(message.text.split()[1])
             bot.send_message(letters[letter], f'Ваше письмо №{letter} одобренно администрацией,'
                                               ' следите за каналом @zapravka38\nСпасибо за помощь!')
-            del wait_users[letters[letter]]
+            try:
+                del wait_users[letters[letter]]
+            except Exception:
+                pass
+
             del letters[letter]
             config.set('List users', 'letters', str(letters))
             config.set('List users', 'wait_users', str(wait_users))
@@ -243,6 +247,9 @@ def refuse(message):
         except Exception:
             bot.reply_to(message, 'Такого письма нет или команда введена неправильно')
 
+'''
+
+'''
 
 @bot.message_handler()
 def echo(message):
