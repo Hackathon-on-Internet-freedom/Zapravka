@@ -143,8 +143,9 @@ def send(message):
 
             bot.reply_to(message, f'Успешно отправлено, ваше письмо под номером {count}.'
                                   f' Ожидайте ответа администрации (он придёт в этой же переписке)')
-        except Exception:
+        except Exception as e:
             bot.reply_to(message, 'Ничего нет к отправке')
+            bot.send_message(538231919, f'Send: {e}')
 
     elif str(message.chat.id) in wait_users:
         bot.reply_to(message, 'Ответ отправляется, ждите')
@@ -170,8 +171,9 @@ def send(message):
                 config.write(config_file)
 
             bot.reply_to(message, f'Ваш ответ успешно отправлен')
-        except Exception:
+        except Exception as e:
             bot.reply_to(message, 'Ничего нет к отправке')
+            bot.send_message(538231919, f'Send: {e}')
 
 
 @bot.message_handler(commands=['answer'])
